@@ -1,0 +1,21 @@
+{
+  "name": "recipe-api",
+  "version": "1.0.0",
+  "description": "A RESTful API for managing recipes using MySQL.",
+  "main": "src/app.js",
+  "scripts": {
+    "start": "node src/app.js",
+    "test": "jest"
+  },
+  "dependencies": {
+    "express": "^4.17.1",
+    "mysql2": "^2.2.5",
+    "dotenv": "^10.0.0"
+  },
+  "devDependencies": {
+    "jest": "^27.0.6",
+    "supertest": "^6.1.6"
+  },
+  "author": "",
+  "license": "ISC"
+}
