@@ -8,6 +8,20 @@ const PORT = process.env.PORT || 3000;
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
+// Root path handler
+app.get('/', (req, res) => {
+    res.json({ 
+        message: 'Welcome to Recipe API',
+        endpoints: {
+            getAllRecipes: '/api/recipes',
+            getRecipeById: '/api/recipes/:id',
+            createRecipe: '/api/recipes',
+            updateRecipe: '/api/recipes/:id',
+            deleteRecipe: '/api/recipes/:id'
+        }
+    });
+});
+
 // Routes
 app.use('/api/recipes', recipeRoutes);
 

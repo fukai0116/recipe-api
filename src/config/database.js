@@ -1,19 +1,28 @@
-const mysql = require('mysql');
-require('dotenv').config();
+const sqlite3 = require('sqlite3').verbose();
+const path = require('path');
 
-const db = mysql.createConnection({
-    host: process.env.DB_HOST,
-    user: process.env.DB_USER,
-    password: process.env.DB_PASSWORD,
-    database: process.env.DB_NAME
-});
+// データベースファイルのパスを設定
+const dbPath = path.join(__dirname, '../../database.sqlite');
 
-db.connect((err) => {
+// データベース接続を作成
+const db = new sqlite3.Database(dbPath, (err) => {
     if (err) {
-        console.error('Database connection failed:', err.stack);
+        console.error('Database connection failed:', err);
         return;
     }
-    console.log('Connected to database.');
+    console.log('Connected to SQLite database.');
+    
+    // テーブルを作成
+    db.run(`
+        CREATE TABLE IF NOT EXISTS recipes (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            title TEXT NOT NULL,
+            ingredients TEXT NOT NULL,
+            instructions TEXT NOT NULL,
+            created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+            updated_at DATETIME DEFAULT CURRENT_TIMESTAMP
+        )
+    `);
 });
 
 module.exports = db;
